@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -18,7 +21,7 @@ public class AccountController {
     }
     //add account rest-api
 
-    @PostMapping("/addAccount")
+    @PostMapping("/add-account")
     public ResponseEntity<AccountDTO> addAccount(@RequestBody AccountDTO accountDTO){
         return new ResponseEntity<>(accountService.createAccount(accountDTO), HttpStatus.CREATED);
     }
@@ -28,4 +31,34 @@ public class AccountController {
         AccountDTO accountDTO = accountService.getAccountById(accountId);
         return ResponseEntity.ok(accountDTO);
     }
+
+    //Deposit REST API
+    @PutMapping("/deposit/{accountId}")
+    public ResponseEntity<AccountDTO> deposit(@PathVariable Long accountId, @RequestBody Map<String,Double> request){
+        Double amountToDeposit = request.get("amountToDeposit");
+        AccountDTO accountDTO = accountService.deposit(accountId,amountToDeposit);
+        return ResponseEntity.ok(accountDTO);
+    }
+    @PutMapping("/withdraw/{accountId}")
+    public ResponseEntity<AccountDTO> withdraw(@PathVariable Long accountId,@RequestBody Map<String,Double> request){
+        Double amountToWithdraw = request.get("amountToWithdraw");
+
+        AccountDTO accountDTO = accountService.withdraw(accountId,amountToWithdraw);
+        return ResponseEntity.ok(accountDTO);
+    }
+//    get all accounts REST API
+    @GetMapping("/")
+    public ResponseEntity<List<AccountDTO>> getAllAccounts(){
+        List<AccountDTO> accounts = accountService.getAllAccounts();
+        return ResponseEntity.ok(accounts);
+    }
+    //delete account REST API
+
+    @DeleteMapping("/delete-account/{accountId}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long accountId ){
+        accountService.deleteAccount(accountId);
+        return ResponseEntity.ok("Account Deleted successfully!");
+    }
+
+
 }
