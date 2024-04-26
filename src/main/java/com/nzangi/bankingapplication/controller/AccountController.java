@@ -2,7 +2,6 @@ package com.nzangi.bankingapplication.controller;
 
 import com.nzangi.bankingapplication.dto.AccountDTO;
 import com.nzangi.bankingapplication.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,17 +33,26 @@ public class AccountController {
 
     //Deposit REST API
     @PutMapping("/deposit/{accountId}")
-    public ResponseEntity<AccountDTO> deposit(@PathVariable Long accountId, @RequestBody Map<String,Double> request){
-        Double amountToDeposit = request.get("amountToDeposit");
-        AccountDTO accountDTO = accountService.deposit(accountId,amountToDeposit);
-        return ResponseEntity.ok(accountDTO);
+    public ResponseEntity<?> deposit(@PathVariable Long accountId, @RequestBody Map<String,Double> request){
+        try {
+            Double amountToDeposit = request.get("amountToDeposit");
+            AccountDTO accountDTO = accountService.deposit(accountId,amountToDeposit);
+            return ResponseEntity.ok(accountDTO);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
     @PutMapping("/withdraw/{accountId}")
-    public ResponseEntity<AccountDTO> withdraw(@PathVariable Long accountId,@RequestBody Map<String,Double> request){
-        Double amountToWithdraw = request.get("amountToWithdraw");
+    public ResponseEntity<?> withdraw(@PathVariable Long accountId,@RequestBody Map<String,Double> request){
+        try {
+            Double amountToWithdraw = request.get("amountToWithdraw");
+            AccountDTO accountDTO = accountService.withdraw(accountId,amountToWithdraw);
+            return ResponseEntity.ok(accountDTO);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
 
-        AccountDTO accountDTO = accountService.withdraw(accountId,amountToWithdraw);
-        return ResponseEntity.ok(accountDTO);
     }
 //    get all accounts REST API
     @GetMapping("/")
@@ -56,9 +64,13 @@ public class AccountController {
 
     @DeleteMapping("/delete-account/{accountId}")
     public ResponseEntity<String> deleteAccount(@PathVariable Long accountId ){
-        accountService.deleteAccount(accountId);
-        return ResponseEntity.ok("Account Deleted successfully!");
-    }
+        try {
+            accountService.deleteAccount(accountId);
+            return ResponseEntity.ok("Account Deleted successfully!");
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
 
+    }
 
 }
