@@ -2,6 +2,7 @@ package com.nzangi.bankingapplication.service.implementation;
 
 import com.nzangi.bankingapplication.dto.AccountDTO;
 import com.nzangi.bankingapplication.entity.Account;
+import com.nzangi.bankingapplication.exceptions.ErrorRuntimeException;
 import com.nzangi.bankingapplication.mapper.AccountMapper;
 import com.nzangi.bankingapplication.repository.AccountRepository;
 import com.nzangi.bankingapplication.service.AccountService;
@@ -32,7 +33,7 @@ public class AccountServiceImplementation implements AccountService {
     @Override
     public AccountDTO getAccountById(Long accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(
-                () -> new RuntimeException("Account Doesn't Exists")
+                () -> new ErrorRuntimeException("Account Doesn't Exists")
         );
 
         return AccountMapper.mapToAccountDTO(account);
@@ -44,7 +45,7 @@ public class AccountServiceImplementation implements AccountService {
                 () -> new RuntimeException("Account Doesn't Exists")
         );
         if(amountToDeposit <= 0){
-            throw new RuntimeException("Amount to deposit must be greater than 0. Your current account balance "+account.getAccountBalance());
+            throw new ErrorRuntimeException("Amount to deposit must be greater than 0. Your current account balance "+account.getAccountBalance());
         }
         double totalAmount = account.getAccountBalance() + amountToDeposit;
         account.setAccountBalance(totalAmount);
@@ -55,14 +56,14 @@ public class AccountServiceImplementation implements AccountService {
     @Override
     public AccountDTO withdraw(Long accountId, double amountToWithdraw) {
         Account account = accountRepository.findById(accountId).orElseThrow(
-                () -> new RuntimeException("Account ID "+accountId+" Doesn't Exists")
+                () -> new ErrorRuntimeException("Account ID "+accountId+" Doesn't Exists")
         );
 
         if(account.getAccountBalance() < amountToWithdraw){
-            throw new RuntimeException("Insufficient amount on Account ID "+accountId+". Your current balance is: " + account.getAccountBalance());
+            throw new ErrorRuntimeException("Insufficient amount on Account ID "+accountId+". Your current balance is: " + account.getAccountBalance());
 
         } else if (amountToWithdraw <=0) {
-            throw new RuntimeException("Amount to withdraw must be greater than 0. Your current balance is: " + account.getAccountBalance());
+            throw new ErrorRuntimeException("Amount to withdraw must be greater than 0. Your current balance is: " + account.getAccountBalance());
         }
         double balance = account.getAccountBalance() - amountToWithdraw;
         account.setAccountBalance(balance);

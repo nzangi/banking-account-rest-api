@@ -1,7 +1,9 @@
 package com.nzangi.bankingapplication.controller;
 
 import com.nzangi.bankingapplication.dto.AccountDTO;
+import com.nzangi.bankingapplication.exceptions.ErrorRuntimeException;
 import com.nzangi.bankingapplication.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class AccountController {
     //add account rest-api
 
     @PostMapping("/add-account")
-    public ResponseEntity<AccountDTO> addAccount(@RequestBody AccountDTO accountDTO){
+    public ResponseEntity<AccountDTO> addAccount(@Valid @RequestBody AccountDTO accountDTO){
         return new ResponseEntity<>(accountService.createAccount(accountDTO), HttpStatus.CREATED);
     }
     //Get account By Id REST API
@@ -38,8 +40,8 @@ public class AccountController {
             Double amountToDeposit = request.get("amountToDeposit");
             AccountDTO accountDTO = accountService.deposit(accountId,amountToDeposit);
             return ResponseEntity.ok(accountDTO);
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (ErrorRuntimeException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }
 
     }
@@ -49,8 +51,8 @@ public class AccountController {
             Double amountToWithdraw = request.get("amountToWithdraw");
             AccountDTO accountDTO = accountService.withdraw(accountId,amountToWithdraw);
             return ResponseEntity.ok(accountDTO);
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (ErrorRuntimeException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }
 
     }
@@ -67,8 +69,8 @@ public class AccountController {
         try {
             accountService.deleteAccount(accountId);
             return ResponseEntity.ok("Account Deleted successfully!");
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (ErrorRuntimeException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }
 
     }
