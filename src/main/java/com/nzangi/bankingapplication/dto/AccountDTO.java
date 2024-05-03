@@ -13,7 +13,7 @@ public class AccountDTO {
     private String accountHolderName;
     @NotNull(message = "This field is required!")
     @Positive(message = "Account Balance should be positive")
-    @Pattern(regexp = "[0-9]+",message = "Account Balance should be int only")
+//    @Pattern(regexp = "[0-9]+",message = "Account Balance should be int only")
     @Min(1)
     private double accountBalance;
 
