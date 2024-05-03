@@ -47,7 +47,7 @@ In the AccountController.java [POST, GET, UPDATE, DELETE] functions are availabl
 1. Clone the repository $ git clone https://github.com/nzangi/banking-account-rest-api.git
 2. Import the project inside Intellij IDEA 
     -Open Intellij IDEA > choose where project was clone to
-3. Make sure you are in the banking-application. <br>
+3. Make sure you are in the banking-application directory. <br>
 
 #### To Run the application you need to install maven and run the given command below:
 
@@ -65,13 +65,13 @@ spring-boot:run
 #### User registration for an account
 <img src="images/user-registration.png"   alt="spring boot image">
 
-#### User getting his account details
+#### Get user account details
 <img src="images/account-details.png"   alt="spring boot image">
 
 #### User deposits money to the account
 <img src="images/deposit-money.png"   alt="spring boot image">
 
-#### User withdraws money to the account
+#### User withdraws money from the account
 <img src="images/withdraw-money.png"   alt="spring boot image">
 
 #### User deletes his account
