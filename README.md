@@ -41,17 +41,20 @@ In the AccountController.java [POST, GET, UPDATE, DELETE] functions are availabl
 - Spring Boot: Backend framework for building Java-based web applications.
 - MySQL: Relational database management system for data storage.
 - IDE/Tool : Ultimate Intellij IDEA
-- Postman: For testing the API
+- Postman: For REST API testing
 
 ## Installation 
 1. Clone the repository $ git clone https://github.com/nzangi/banking-account-rest-api.git
 2. Import the project inside Intellij IDEA 
     -Open Intellij IDEA > choose where project was clone to
-3. Make sure you are in the banking-application directory. <br>
+3. Make sure you are in the banking-application directory.
+4. Ensure you have Java 21 installed.
+5. Run the application. <br>
 
 #### To Run the application you need to install maven and run the given command below:
 
-Run the command where you have downloaded the repository.
+Open Terminal in Linux or MacOS or CMD on windows and run the
+command where you have downloaded the repository.
 
 ```
 install mvn
@@ -68,13 +71,13 @@ spring-boot:run
 #### Get user account details
 <img src="images/account-details.png"   alt="spring boot image">
 
-#### User deposits money to the account
+#### User can deposit money to his account
 <img src="images/deposit-money.png"   alt="spring boot image">
 
-#### User withdraws money from the account
+#### User can withdraw money from his account
 <img src="images/withdraw-money.png"   alt="spring boot image">
 
-#### User deletes his account
+#### User can delete his account
 <img src="images/delete-account.png"   alt="spring boot image">
 
 #### List all available user accounts
@@ -96,7 +99,7 @@ spring-boot:run
     }
 ```
 
-###### Developed with  by Nzangi
+###### Developed by Nzangi
 
 ## LICENSE
 
