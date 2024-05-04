@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -14,8 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ValidationHandler extends ResponseEntityExceptionHandler {
+public class ValidationHandler extends ResponseEntityExceptionHandler{
     @Override
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   HttpHeaders httpHeaders, HttpStatusCode httpStatusCode, WebRequest webRequest){
         Map<String,String> errors = new HashMap<>();

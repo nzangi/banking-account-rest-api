@@ -17,15 +17,19 @@ public class AccountController {
 
     private AccountService accountService;
 
+    //    Constructor Dependency Injection
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
+
     //add account rest-api
 
-    @PostMapping("/add-account")
+    @PostMapping("/create-account")
     public ResponseEntity<AccountDTO> addAccount(@Valid @RequestBody AccountDTO accountDTO){
+//        String responseMessage = "Your account was created successfully. Account details: " + accountService.createAccount(accountDTO);
         return new ResponseEntity<>(accountService.createAccount(accountDTO), HttpStatus.CREATED);
     }
+
     //Get account By Id REST API
     @GetMapping("/account/{accountId}")
     public  ResponseEntity<AccountDTO> getAccountById(@PathVariable Long accountId){
@@ -62,6 +66,7 @@ public class AccountController {
         List<AccountDTO> accounts = accountService.getAllAccounts();
         return ResponseEntity.ok(accounts);
     }
+
     //delete account REST API
 
     @DeleteMapping("/delete-account/{accountId}")
