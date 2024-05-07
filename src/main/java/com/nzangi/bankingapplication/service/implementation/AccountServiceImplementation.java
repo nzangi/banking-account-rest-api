@@ -25,9 +25,16 @@ public class AccountServiceImplementation implements AccountService {
 
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO) {
-        Account account = AccountMapper.mapToAccount(accountDTO);
-        Account savedAccount = accountRepository.save(account);
-        return AccountMapper.mapToAccountDTO(savedAccount);
+        try {
+            double balance = Double.parseDouble(String.valueOf(accountDTO.getAccountBalance()));
+            Account account = AccountMapper.mapToAccount(accountDTO);
+            Account savedAccount = accountRepository.save(account);
+            return AccountMapper.mapToAccountDTO(savedAccount);
+
+        }catch (NumberFormatException exception){
+            throw new ErrorRuntimeException("Account balance must be a valid number");
+        }
+
     }
 
     @Override

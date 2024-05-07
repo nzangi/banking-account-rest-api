@@ -15,24 +15,9 @@ public class AccountDTO {
 
     @NotNull(message = "This field is required!")
     @Min(value = 1, message = "Account Balance should be positive and greater than zero")
-    @DecimalMin(value = "1.0", message = "Account Balance should be positive and greater than zero")
-    @Digits(integer = 10, fraction = 2, message = "Account Balance should be a valid number with up to 10 digits in total and 2 decimal places")
-    private double accountBalance;
+//    @DecimalMin(value = "1.0", message = "Account Balance should be positive and greater than zero")
+//    @Digits(integer = 10, fraction = 2, message = "Account Balance should be a valid number with up to 10 digits in total and 2 decimal places")
+//    @Pattern(regexp = "^\\d*\\.?\\d+$", message = "Account Balance should be a valid number")
+    private Double accountBalance;
 }
-//@Override
-//public String toString(){
-//    return "Account Details {"
-//    "accountId=" + accountId +
-//            ", accountHolderName='" + accountHolderName + '\'' +
-//            ", accountBalance=" + accountBalance +
-//            '}';
-//}
 
-//@Override
-//public String toString() {
-//    return "Account Details{" +
-//            "accountId=" + accountId +
-//            ", accountHolderName='" + accountHolderName + '\'' +
-//            ", accountBalance=" + accountBalance +
-//            '}';
-//}

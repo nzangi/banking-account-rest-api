@@ -21,6 +21,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   HttpHeaders httpHeaders, HttpStatusCode httpStatusCode, WebRequest webRequest){
         Map<String,String> errors = new HashMap<>();
+
         exception.getBindingResult().getAllErrors().forEach((error)->{
             String fieldName = ((FieldError)error).getField();
             String message = error.getDefaultMessage();

@@ -25,14 +25,21 @@ public class AccountController {
     //add account rest-api
 
     @PostMapping("/create-account")
-    public ResponseEntity<AccountDTO> addAccount(@Valid @RequestBody AccountDTO accountDTO){
+    public ResponseEntity<?> addAccount(@Valid @RequestBody AccountDTO accountDTO){
 //        String responseMessage = "Your account was created successfully. Account details: " + accountService.createAccount(accountDTO);
-        return new ResponseEntity<>(accountService.createAccount(accountDTO), HttpStatus.CREATED);
+        try {
+            // Proceed with saving the account to the database
+            return new ResponseEntity<>(accountService.createAccount(accountDTO), HttpStatus.CREATED);
+        }catch (ErrorRuntimeException exception){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        }
+
     }
 
     //Get account By Id REST API
     @GetMapping("/account/{accountId}")
     public  ResponseEntity<AccountDTO> getAccountById(@PathVariable Long accountId){
+
         AccountDTO accountDTO = accountService.getAccountById(accountId);
         return ResponseEntity.ok(accountDTO);
     }
